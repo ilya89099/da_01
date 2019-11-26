@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Werror -g   CMakeFiles/serega.dir/serega.cpp.o  -o serega 

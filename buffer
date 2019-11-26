@@ -1,0 +1,105 @@
+\section{Тест производительности}
+Существует также алгоритм сортировки подсчётом, работающий за квадратичное время. В нем не используется массив, содержащий информацию о элементах, меньших или равных данному. В данном алгоритме используется лишь один вспомогательный массив - результирующий.\\
+Псевдокод алгоритма\cite{wikipedia_sort}
+\begin{alltt}
+SquareCountingSort
+    for i = 0 to n - 1
+        c = 0;
+        for j = 0 to i - 1
+            if A[j] <= A[i]
+                c = c + 1;
+        for j = i + 1 to n - 1
+            if A[j] < A[i]
+                c = c + 1;
+        B[c] = A[i];
+\end{alltt}
+
+Напишем простую программу для генерации тестов и замерим время выполнения каждой из программ.
+
+
+\subsection{Протокол тестирования производительности}
+\begin{alltt}
+ilya@ilya-lenovo:~/CLionProjects/da_01$ cat generate.cpp
+
+#include <ctime>
+#include <random>
+#include <limits>
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+default_random_engine rng;
+
+uint64_t my_random(uint64_t max) {
+    uniform_int_distribution<unsigned long long> dist_ab(0, max);
+    return dist_ab(rng);
+}
+
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        return 1;
+    }
+    long long count = stoll(argv[1]);
+    for (int i = 0; i < count; ++i) {
+        cout << setw(6) << setfill('0') << my_random(999999) << "\backslash t" << my_random(numeric_limits<uint64_t>::max()) << "\backslash n";
+    }
+}
+ilya@ilya-lenovo:~/CLionProjects/da_01$ cd cmake-build-debug/
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cmake --build . --target generate
+[100%] Built target generate
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./generate 1000 > test_1000
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./generate 10000 > test_10000
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./generate 100000 > test_100000
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ sort test_1000 > test_1000.result
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ sort test_10000 > test_10000.result
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ sort test_100000 > test_100000.result
+
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./da_01 < test_1000 > prog_result1
+
+real	0m0,019s
+user	0m0,015s
+sys	0m0,004s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./da_01 < test_10000 > prog_result2
+
+real	0m0,025s
+user	0m0,018s
+sys	0m0,007s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./da_01 < test_100000 > prog_result3
+
+real	0m0,093s
+user	0m0,069s
+sys	0m0,025s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ diff prog_result1 test_1000.result & diff prog_result2 test_10000.result & diff prog_result3 test_100000.result
+[1] 29959
+[2] 29960
+[1]-  Завершён        diff prog_result1 test_1000.result
+[2]+  Завершён        diff prog_result2 test_10000.result
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./square_sort < test_1000 > prog_result1
+
+real	0m0,018s
+user	0m0,014s
+sys	0m0,004s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./square_sort < test_10000 > prog_result2
+
+real	0m1,285s
+user	0m1,284s
+sys	0m0,000s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ time ./square_sort < test_100000 > prog_result3
+
+real	2m14,586s
+user	2m14,357s
+sys	0m0,080s
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ diff prog_result1 test_1000.result & diff prog_result2 test_10000.result & diff prog_result3 test_100000.result
+[1] 29959
+[2] 29960
+[1]-  Завершён        diff prog_result1 test_1000.result
+[2]+  Завершён        diff prog_result2 test_10000.result
+
+\end{alltt}
+
+Как видно, время работы сортировки за квадратичное время очень быстро растёт с увеличением количества тестовых данных, в то время как сортировка подсчётом за линейное время работает крайне быстро.
+
+\pagebreak
+
+

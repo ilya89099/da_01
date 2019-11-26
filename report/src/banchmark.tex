@@ -1,0 +1,91 @@
+\section{Тест производительности}
+Существует также алгоритм сортировки подсчётом, работающий за квадратичное время. В нем не используется массив, содержащий информацию о элементах, меньших или равных данному. В данном алгоритме используется лишь один вспомогательный массив - результирующий.\\\\
+Псевдокод алгоритма\cite{wikipedia_sort}\\
+\begin{lstlisting}
+SquareCountingSort
+    for i = 0 to n - 1
+        c = 0;
+        for j = 0 to i - 1
+            if A[j] <= A[i]
+                c = c + 1;
+        for j = i + 1 to n - 1
+            if A[j] < A[i]
+                c = c + 1;
+        B[c] = A[i];
+\end{lstlisting}
+
+Напишем простую программу generate для генерации тестов(принимает количество тестовых строк, минимальный и максимальный ключи, которые гарантированно будут в тесте). Также добавим в программу код, выводящий в $std::cerr$ время выполнения в миллисекундах(используется библиотека std::chrono). Сравним данным способом время, за которое выполняют свою задачу $std::sort$, сортировка подсчётом и квадратичная сортировка подсчётом.
+
+\begin{lstlisting} [language=C]
+#include <ctime>
+#include <random>
+#include <limits>
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+default_random_engine rng;
+
+uint64_t my_random(uint64_t max) {
+    uniform_int_distribution<unsigned long long> dist_ab(0, max);
+    return dist_ab(rng);
+}
+
+int main(int argc, char** argv) {
+    if (argc < 4) {
+        return 1;
+    }
+    long long count = stoll(argv[1]);
+    long long min_key = stoll(argv[2]);
+    long long max_key = stoll(argv[3]);
+    cout << setw(6) << setfill('0') << min_key << my_random(numeric_limits<uint64_t>::max()) << "\n";
+    cout << setw(6) << setfill('0') << max_key << "\t" << my_random(numeric_limits<uint64_t>::max()) << "\n";
+    for (int i = 0; i < count; ++i) {
+        cout << setw(6) << setfill('0') << my_random(999999 - min_key - max_key) + min_key << "\t" << 	          my_random(numeric_limits<uint64_t>::max()) << "\n";
+    }
+}
+\end{lstlisting}
+
+
+\subsection{Протокол тестирования производительности}
+\begin{alltt}
+
+ilya@ilya-lenovo:~/test_dir$ ./generate 1000 > test_1000
+ilya@ilya-lenovo:~/test_dir$ ./generate 10000 > test_10000
+ilya@ilya-lenovo:~/test_dir$ ./generate 100000 > test_100000
+ilya@ilya-lenovo:~/test_dir$ ./generate 1000000 > test_1000000
+
+ilya@ilya-lenovo:~/test_dir$ ./std_sort < test_1000 >result_1000
+Std_sort_time: 1ms
+ilya@ilya-lenovo:~/test_dir$ ./std_sort < test_10000 >result_10000
+Std_sort_time: 5ms
+ilya@ilya-lenovo:~/test_dir$ ./std_sort < test_100000 >result_100000
+Std_sort_time: 59ms
+
+ilya@ilya-lenovo:~/test_dir$ ./square_sort < test_1000 > result_1000
+Square_counting_sort_time: 22ms
+ilya@ilya-lenovo:~/test_dir$ ./square_sort < test_10000 > result_10000
+Square_counting_sort_time: 1424ms
+ilya@ilya-lenovo:~/test_dir$ ./square_sort < test_100000 > result_100000
+Square_counting_sort_time: 125425ms
+
+ilya@ilya-lenovo:~/test_dir$ ./da_01 < test_1000 > result_1000
+Counting_sort_time: 21ms
+ilya@ilya-lenovo:~/test_dir$ ./da_01 < test_10000 > result_10000
+Counting_sort_time: 28ms
+ilya@ilya-lenovo:~/test_dir$ ./da_01 < test_100000 > result_100000
+Counting_sort_time: 49ms
+
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./da_01 < test_1000000 > result
+Counting_sort_time: 366ms
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./std_sort < test_1000000 > result
+Std_sort_time: 653ms
+
+
+\end{alltt}
+
+Как видно, время работы сортировки за квадратичное время очень быстро растёт с увеличением количества тестовых данных, в то время как сортировка подсчётом за линейное время работает крайне быстро. Как видно из последнего теста, время сортировки подсчётом для больших наборов тестовых данных становится значительно быстрее стандартной сортировки(ожидаемо, $std::sort$ имеет оценку $O(nlogn)$.
+
+\pagebreak
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="da_01" targetName="std_sort" />
+      <config projectName="da_01" targetName="da_01" />
+      <config projectName="da_01" targetName="generate" />
+      <config projectName="da_01" targetName="square_sort" />
+      <config projectName="da_01" targetName="test_speed" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="40779472-fca6-408a-ac48-6413e192aec8" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ProjectId" id="1R3q1cBg51X81kjA5m3uNuqivEX" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Database" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="CMake Application.test_speed">
+    <configuration name="da_01" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="da_01" TARGET_NAME="da_01" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="da_01" RUN_TARGET_NAME="da_01">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="generate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="da_01" TARGET_NAME="generate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="da_01" RUN_TARGET_NAME="generate">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="square_sort" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="da_01" TARGET_NAME="square_sort" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="da_01" RUN_TARGET_NAME="square_sort">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="std_sort" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="da_01" TARGET_NAME="std_sort" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="da_01" RUN_TARGET_NAME="std_sort">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test_speed" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="da_01" TARGET_NAME="test_speed" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="da_01" RUN_TARGET_NAME="test_speed">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.da_01" />
+      <item itemvalue="CMake Application.generate" />
+      <item itemvalue="CMake Application.square_sort" />
+      <item itemvalue="CMake Application.std_sort" />
+      <item itemvalue="CMake Application.test_speed" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40779472-fca6-408a-ac48-6413e192aec8" name="Default Changelist" comment="" />
+      <created>1568905912259</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568905912259</updated>
+      <workItem from="1568905913376" duration="11000" />
+      <workItem from="1568905931105" duration="10460000" />
+      <workItem from="1568917610518" duration="5073000" />
+      <workItem from="1568965486145" duration="10475000" />
+      <workItem from="1568980022242" duration="3443000" />
+      <workItem from="1569007574629" duration="5600000" />
+      <workItem from="1569046416749" duration="24000" />
+      <workItem from="1569056705925" duration="8842000" />
+      <workItem from="1569086486760" duration="7112000" />
+      <workItem from="1569140933887" duration="16000" />
+      <workItem from="1569239244991" duration="3813000" />
+      <workItem from="1569251403176" duration="8439000" />
+      <workItem from="1569318233017" duration="12000" />
+      <workItem from="1569871727933" duration="650000" />
+      <workItem from="1570030228519" duration="269000" />
+      <workItem from="1570174471763" duration="4688000" />
+      <workItem from="1570381876304" duration="603000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>

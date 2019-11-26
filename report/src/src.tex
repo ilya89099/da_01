@@ -1,0 +1,301 @@
+\section{Описание}
+Необходимо реализовать алгоритм сортировки подсчётом. Как известно любой алгоритм сортировки, в котором данные о порядке элементов извлекаются из непосредственного сравнения элементов, требует 
+$\Omega(n lg n) сравнений$. 
+\begin{displayquote}
+	Для доказательства данного утверждения достаточно определить высоту дерева, в котором каждая перестановка представлена достижимым листом.\cite{Kormen}
+\end{displayquote}
+Сортировка подсчётом не использует непосредственное сравнение элементов, вместо этого, предполагается, что ключи, по которым производится сортировка, принадлежат некоторому множеству ${0..k}$ целых чисел. Алгоритм сортировки подсчётом основан на подсчёте количества элементов во входном массиве, которые меньше или равны данному. Благодаря этому, если $k = o(N)$, то сложность всего алгоритма становится равна $O(N)$. Также, данный алгоритм можно немного модифицировать, уменьшив количество ключей для подсчёта. Это можно сделать, если обобщить алгоритм на произвольный целочисленный диапазон и определить минимальный и максимальный ключи из тех, что попадаются во входных данных. 
+\begin{displayquote}
+Обобщение происходит следующим образом : если min больше нуля, то следует при работе с массивом C из A[i] вычитать min, а при обратной записи прибавлять. При наличии отрицательных чисел нужно при работе с массивом C к A[i] прибавлять |min|, а при обратной записи вычитать.\cite{wikipedia_sort}
+\end{displayquote}
+
+\pagebreak
+
+\section{Исходный код}
+
+\subsection{Описание программы}
+На каждой непустой строке входного файла располагается пара \enquote{ключ-значение}, поэтому создадим структуру $TSortType$, в которой будем хранить ключ и значение. Для хранения ключа подойдет почти любой целочисленный тип, а вот для значения необходимо выбрать 64-битный 
+беззнаковый(unsigned long long или uint64\_t). В целях повышения удобства работы со структурой, реализуем перегрузки операторов ввода/вывода. 
+\\Экземпляры структуры $TSortType$ перед сортировкой необходимо поместить в какой-нибудь контейнер, позволяющий обратиться к произвольному элементу за $O(1)$. Для этого напишем шаблон класса 
+$TVector$, который будет предоставлять примерно тот же функционал, что и $std::vector$.
+\\Далее, рассмотрим функцию для сортировки подсчётом. Функция принимает вектор структур \enquote{ключ-значение} по константной ссылке, минимальное и максимальное значения переданных ключей, а возвращает новый, отсортированный вектор. Внутри функции, создаются два вектора - результирующий вектор структур $TSortType$ и временный вектор целых чисел, используемый для подсчета ключей. Последний сначала инициализируется нулями. После этого, в цикле $for(i)$ просматривается каждый элемент входного массива. Если значение данного элемента равно $i$, то значение временного массива в ячейке $i - minKey$ увеличивается на 1. Далее, для каждого $i = 0,1 . . . maxKey - minKey$ с помощью суммирования определяется, сколько элементов входного массива не превышают $i + minKey$. Наконец, в соответствии со значениями, хранящимися во временном векторе, заполняется результирующий массив, который и возвращается из функции. 
+
+\pagebreak
+\subsection{Таблица функций и методов}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp}\\
+\hline 
+TVector<TSortType> countingSort(const TVector<TSortType>\& v,  int maxKey, int minKey)&Функция сортировки подсчётом\\
+\hline
+std::istream\& operator >> (std::istream\& is, TSortType\& elem)&Перегрузка оператора ввода для TSortType\\
+\hline
+std::ostream\& operator << (std::ostream\& is, TSortType\& elem)&Перегрузка оператора вывода для TSortType\\
+\hline
+int main() &Обрабатывает ввод, создавая вектор из структур, созданных на основе входных данных. Вызывает функцию сортировки. Осуществляет вывод результирующего вектора.\\
+\hline
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp, template<typename T> class TVector}\\
+\hline
+TVector() = default; & Конструктор без параметров\\
+\hline
+TVector(size\_t newSize) & Конструктор, принимающий размер нового вектора\\
+\hline
+TVector(size\_t newSize, T defaultVal) &Конструктор, принимающий размер и значение по умолчанию\\
+\hline 
+TVector(const TVector\& other)&Конструктор копирования, копирует значения из переданного вектора\\
+\hline
+TVector(TVector\&\& other)& Конструктор перемещения, перемещает в создаваемый объект указатель из other, в other указатель становится nullptr\\
+\hline
+~TVector() & Деструктор, освобождает выделенную память.\\
+\hline 
+T\& operator[] (size\_t index)& Оператор доступа по индексу, возвращает data[index].\\
+\hline 
+const T\& operator[] (size\_t index) const& Константная версия оператора доступа по индексу.\\
+\hline
+void PushBack(const T\& elem)&Добавляет elem в конец вектора, при необходимости совершая реаллокацию памяти\\
+\hline 
+T* begin()& Возвращает указатель на память, храняющуюся внутри вектора, название данной и трёх последующих функций не соответствует codestyle из-за того, что функции begin() и end() используются в range-based for.\\
+\hline 
+T* end()& Возвращает указатель на хранящуюся память, увеличенный на размер вектора.\\
+\hline 
+const T* begin() const& Константная версия метода begin().\\
+\hline
+const T* end() const& Константная верстия метода end().\\
+\hline 
+TVector\& operator=(const TVector\& other) & Копирующий оператор присваивания, возвращает ссылку на текущий объект.\\
+\hline
+TVector\& operator=(TVector\&\& other)& Перемещающий оператор присваивания, перемещает указатель на память из other, указатель в other становится nullptr. Возвращает ссылку на текущий объект.\\
+\hline 
+void ShrinkToFit()& Сжимает кусок памяти, которым владеет вектор до его реального размера.\\
+\hline
+size\_t Size() const & Возвращает размер вектора.\\
+\hline
+\rowcolor{lightgray}
+\end{longtable}
+
+
+\subsection{Код программы}
+\begin{lstlisting}[language=C]
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+
+template <typename T>
+class TVector {
+public:
+    TVector() = default;
+    TVector(size_t newSize);
+    TVector(size_t newSize, T defaultVal);
+    TVector(const TVector& other);
+    TVector(TVector&& other);
+    ~TVector();
+    T& operator[] (size_t index);
+    const T& operator[] (size_t index) const;
+    void PushBack(const T& elem);
+    T* begin();
+    T* end();
+    const T* begin() const;
+    const T* end() const;
+    TVector& operator=(const TVector& other);
+    TVector& operator = (TVector&& other);
+    void ShrinkToFit();
+    size_t Size() const;
+
+private:
+    T* data = nullptr;
+    size_t size = 0;
+    size_t capacity = 0;
+};
+
+struct TSortType {
+    int key;
+    uint64_t value;
+};
+
+std::istream& operator >> (std::istream& is, TSortType& elem) {
+    return is >> elem.key >> elem.value;
+}
+
+std::ostream& operator << (std::ostream& is, TSortType& elem) {
+    return is << std::setw(6) << std::setfill('0') << elem.key << '\t' << elem.value;
+}
+
+TVector<TSortType> CountingSort(const TVector<TSortType>& v, int minKey, int maxKey) {
+    if(v.Size() == 0) {
+        return {};
+    }
+    TVector<uint64_t> counts(maxKey - minKey + 1, 0);
+    for (TSortType element : v) {
+        counts[element.key - minKey]++;
+    }
+    for (size_t i = 1; i < counts.Size(); ++i) {
+        counts[i] += counts[i - 1];
+    }
+    TVector<TSortType> result(v.Size());
+    for (size_t i = v.Size(); i > 0; --i) {
+        result[--counts[v[i - 1].key - minKey]] = v[i - 1];
+    }
+    return result;
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    TVector<TSortType> inputVector;
+    TSortType temp;
+    int maxKey = -1;
+    int minKey = 1000000;
+    while(std::cin >> temp) {
+        inputVector.PushBack(temp);
+        if (temp.key > maxKey) {
+            maxKey = temp.key;
+        }
+        if (temp.key < minKey) {
+            minKey = temp.key;
+        }
+    }
+    inputVector.ShrinkToFit();
+    TVector<TSortType> result = CountingSort(inputVector, minKey, maxKey);
+    for (TSortType i : result) {
+        std::cout << i << "\n";
+    }
+    return 0;
+}	
+\end{lstlisting}
+
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ls
+CMakeCache.txt  CMakeFiles  cmake_install.cmake  da_01  da_01.cbp  empty  empty_test  generate  Makefile  sort  test  test_01  test_02  test_03
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cmake --build . --target da_01
+[100%] Built target da_01
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cat empty_test
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./da_01 < empty_test 
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cat test_01
+1	4
+5	8
+2	11
+8	74
+4	12
+5	2
+5	1 
+1	5
+10	6
+
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./da_01 < test_01
+000001	4
+000001	5
+000002	11
+000004	12
+000005	8
+000005	2
+000005	1
+000008	74
+000010	6
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cat test_02
+000000	31241243123
+999999	45345412314
+992329	9173241519274
+452312	243252341
+553322	71212358762984
+342348	127389123
+121231	5237412
+523343	213
+234252	24534
+345345	342738
+251932	3402730472
+241939	43058209
+532423	24876384723
+123412	7543792
+999999	10182310
+999999	151094823
+999999	25103750929
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./da_01 < test_02
+000000	31241243123
+121231	5237412
+123412	7543792
+234252	24534
+241939	43058209
+251932	3402730472
+342348	127389123
+345345	342738
+452312	243252341
+523343	213
+532423	24876384723
+553322	71212358762984
+992329	9173241519274
+999999	45345412314
+999999	10182310
+999999	151094823
+999999	25103750929
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ cat test_03
+000007	3484614493785666169
+532887	4828641007683365971
+679449	13055523280712283859
+053473	12318502244045278956
+383502	1925314227934318260
+589109	9647485219232062217
+416093	18033171869389351789
+262512	3394578529375205246
+632781	18405411276370922156
+247094	16839657125260286356
+631777	12758205263944437784
+237827	6268503287710306687
+486626	4171976010561805431
+516408	9161769635579038968
+266204	4370791132210130574
+500819	5889500272216580892
+529866	13562876108260841219
+761685	17652691491696419685
+015871	17839141181180571478
+736390	18444243949387268945
+233247	6230458118142611781
+591246	11701249246842320528
+287277	708908267150101213
+802586	2464714855437598181
+955575	16392624604709550746
+624990	7907703968673471409
+091010	4625519226348829401
+026882	18160345884143606829
+180936	8702208438469711566
+150368	15614314300537846604
+ilya@ilya-lenovo:~/CLionProjects/da_01/cmake-build-debug$ ./da_01 < test_03
+000007	3484614493785666169
+015871	17839141181180571478
+026882	18160345884143606829
+053473	12318502244045278956
+091010	4625519226348829401
+150368	15614314300537846604
+180936	8702208438469711566
+233247	6230458118142611781
+237827	6268503287710306687
+247094	16839657125260286356
+262512	3394578529375205246
+266204	4370791132210130574
+287277	708908267150101213
+383502	1925314227934318260
+416093	18033171869389351789
+486626	4171976010561805431
+500819	5889500272216580892
+516408	9161769635579038968
+529866	13562876108260841219
+532887	4828641007683365971
+589109	9647485219232062217
+591246	11701249246842320528
+624990	7907703968673471409
+631777	12758205263944437784
+632781	18405411276370922156
+679449	13055523280712283859
+736390	18444243949387268945
+761685	17652691491696419685
+802586	2464714855437598181
+955575	16392624604709550746
+
+\end{alltt}
+\pagebreak
+

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ilya/CLionProjects/da_01/square_counting_sort.cpp
+iostream
+-
+iomanip
+-
+algorithm
+-
+chrono
+-
+

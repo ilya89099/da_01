@@ -1,0 +1,8 @@
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/generate.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/test_speed.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/da_01.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/square_sort.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/serega.dir
+/home/ilya/CLionProjects/da_01/cmake-build-debug/CMakeFiles/std_sort.dir

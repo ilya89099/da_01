@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/test.dir/lab1da.cpp.o  -o test 

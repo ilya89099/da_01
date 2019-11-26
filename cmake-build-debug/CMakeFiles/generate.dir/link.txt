@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Werror -g   CMakeFiles/generate.dir/generate.cpp.o  -o generate 

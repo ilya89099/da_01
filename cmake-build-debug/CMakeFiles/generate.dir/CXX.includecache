@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ilya/CLionProjects/da_01/generate.cpp
+ctime
+-
+random
+-
+limits
+-
+cstdlib
+-
+iostream
+-
+iomanip
+-
+

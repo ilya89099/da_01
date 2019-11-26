@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Werror -g   CMakeFiles/std_sort.dir/std_sort.cpp.o  -o std_sort 

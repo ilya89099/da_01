@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ilya/CLionProjects/da_01/test_speed.cpp
+ctime
+-
+random
+-
+limits
+-
+cstdlib
+-
+iostream
+-
+iomanip
+-
+vector
+-
+list
+-
+chrono
+-
+

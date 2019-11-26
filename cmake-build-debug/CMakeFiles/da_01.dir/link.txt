@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Werror -g   CMakeFiles/da_01.dir/main.cpp.o  -o da_01 

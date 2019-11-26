@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Werror -g   CMakeFiles/square_sort.dir/square_counting_sort.cpp.o  -o square_sort 
